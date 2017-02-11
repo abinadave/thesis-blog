@@ -1,0 +1,50 @@
+<div class="modal fade" id="modal-msg-box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <style type="text/css">
+        .img-msg {
+            width: 80px;
+            height: 80px;
+        }
+        .modal-dialog {
+            font-size: 13px;
+        }
+
+        .its-me {
+            background-color: #46b8da;
+        }
+
+        .its-admin {
+            background-color: #f0ad4e;
+        }
+    </style>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Messages</h4>
+            </div>
+            <div id="div-msg-box" class="modal-body" style="padding: 20px; overflow:auto; height: 450px">
+
+                <div class="single-msg" :style="{ width: chatWidth + '%', marginLeft: getChatMarginLeft(message) + '%' }" v-for="message in conversations">
+                    <div style="padding: 13px" :class="{'alert its-me': isMe(message), 'alert its-admin' : !isMe(message) }">
+                        <span style="color: #333">{{ message.msg }}</span>
+                    </div>
+                    <span class="pull-right" style="font-size: 10px; margin-top: -24px">{{ getTime(message) }}</span>
+                </div>
+    
+            </div>
+            <div class="modal-footer" style="border-color: transparent; margin-top: 5px">
+                <hr>
+                <form @submit.prevent="sendMsg()">
+                    <div class="col-lg-12">
+                        <div class="input-group">
+                          <input v-model="my_message" type="text" class="form-control" placeholder="Enter message to admin">
+                          <span class="input-group-btn">
+                            <button @click="sendMsg()" class="btn btn-primary" type="button">{{ button_text }}</button>
+                          </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,98 @@
+<div class="container" style="margin-top: 80px">
+    <div class="col-md-3" style="display: static">
+		
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne">
+              <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  Price
+                </a>
+              </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+              <div class="panel-body">
+                <a  style="cursor: pointer" @click="filterItemsByPrice(0, 240)">Php 0 - 240</a><br>
+                <a  style="cursor: pointer" @click="filterItemsByPrice(241, 453)">Php 241 - 453</a><br>
+                <a  style="cursor: pointer" @click="filterItemsByPrice(454, 865)">Php 454 - 865</a><br>
+                <a  style="cursor: pointer" @click="filterItemsByPrice(866, 1505)">Php 866 - 1505</a><br>
+                <a  style="cursor: pointer" @click="filterItemsByPrice(1506, 5250)">Php 1506 - 5250</a><br>
+                <a  style="cursor: pointer" @click="filterItemsByPrice(5255, 10000)">Php 5255+</a><br>
+                <a  style="cursor: pointer" @click="displayAll()">Clear Sorted Price</a>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingTwo">
+              <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  Size
+                </a>
+              </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+              <div class="panel-body">
+                 <sizes-of-category></sizes-of-category>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingThree">
+              <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  Color
+                </a>
+              </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+              <div class="panel-body">
+               3
+              </div>
+            </div>
+          </div>
+        </div>	
+    </div>
+	<div class="col-md-9">
+
+            <div v-show="foundProducts($route.params.id)" class="alert alert-info alert-dismissable">
+                Currently, there are 0 item found for this category
+            </div>
+
+	    <div class="col-lg-12">
+        
+                <div class="row">
+
+                    <div v-for="item in products" class="col-sm-4 col-lg-4 col-md-4">
+                        <div class="thumbnail">
+                            <a @click="showItemDetails(item)">
+                              <img class="img-thumbnail" style="cursor: pointer; width: 260px; height: 340px" :src="'uploads/products/' + item.filename">
+                            </a>
+                          
+                            <div class="caption">
+                                <h4 class="pull-right">{{ item.prize | currency '' }}</h4>
+                                <h4><a href="#" style="display: none">-</a>
+                                </h4>
+                                <p class="text-primary">{{ item.title | uppercase }}</p>
+                                <p>{{ item.description }}</p>
+                            </div>
+                            <div class="ratings">
+                                <p class="pull-right">15 reviews</p>
+                                <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                </p>
+                            </div>
+                            <!-- <hr/> -->
+                        </div>
+                    </div>
+
+                </div>
+           
+        </div>
+	</div>
+</div>
+
+<product-details :colors="$parent.colors"></product-details>

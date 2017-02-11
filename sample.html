@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<script src="public\js\libs\vue\vue-2.0.js"></script>
+<body>
+
+<div id="app">
+	 <label>Fullname: {{ fullname }}</p></label>
+</div>
+
+<script type="text/javascript">
+	let app = new Vue({
+		el: '#app',
+		data: {
+			firstname: 'ryan',
+			lastname: 'abina'
+		},
+		computed: {
+			fullname(){
+				return this.firstname + ' ' + this.lastname;
+			}
+		},
+		methods: {
+			
+		},
+		created(){
+
+		}
+	});
+</script>
+</body>
+</html>

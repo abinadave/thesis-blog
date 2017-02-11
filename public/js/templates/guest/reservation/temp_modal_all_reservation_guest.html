@@ -1,0 +1,55 @@
+    <div class="modal fade" id="modal-reservation-guests" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 800px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Reservations
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        You have {{ totalItems }} item/s in your cart
+                        <table class="table table-condensed table-hover">
+                            <thead>
+                                <tr>
+                                    <th width="100"></th>
+                                	<th width="350">Item</th>
+                                    <th class="text-center">Color</th>
+                                    <th class="text-center">Size</th>
+                                	<th class="text-center">Price</th>
+                                	<th>Qty</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            	<tr v-for="obj in carts">
+                                    <td><img class="img-rounded" style="width: 80px" :src="'uploads/products/' + obj.filename"></td>
+                            		<td class="text-center" style="text-align: justify;">
+                                       <b class="text-info">{{ obj.title | uppercase }}</b><br><br>
+                                       <small>{{ obj.description.substr(0,150) + '...' }}</small>
+                                    </td>
+                                    <td class="text-center">{{ obj.color }}</td>
+                                    <td class="text-center">{{ obj.size }}</td>
+                            		<td class="text-center">{{ obj.price }}</td>
+                            		<td>
+                                       <input style="width: 55px; text-align: center" type="text" class="form-control input-sm" v-model="obj.qty"/>
+                                    </td>
+                            	</tr>
+                            </tbody>
+                            <tr>
+                                <td colspan="3"></td>
+                                <td class="text-center"><b>{{ totalPrice | currency 'Php ' }}</b></td>
+                            </tr>
+                        </table>
+                    </div>    
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Continue Shopping</button>
+                    <button @click="checkOutItems()" v-show="carts.length" class="btn btn-info">Checkout</button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>

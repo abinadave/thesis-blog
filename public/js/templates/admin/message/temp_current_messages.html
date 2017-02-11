@@ -1,0 +1,19 @@
+<style type="text/css">
+   .img-current-msgs {
+      height: 30px;
+      width: 30px;
+   }
+</style>
+
+<div class="x_panel panel-current-msgs single-msg" v-for="msg in conversations">
+    <div class="x_title">
+      <h2><img class="img-current-msgs" src="assets/gentelella-master/production/images/user.png"> <small> {{ getName(msg) }}</small></h2>
+      <ul class="nav navbar-right panel_toolbox">
+        <li><a href="">{{ getChatTime(msg.date) }}</a></li>
+        <li><a class="close-link"><i class="fa fa-close"></i></a>
+        </li>
+      </ul>
+      <div class="clearfix"></div>
+  </div>
+  <p>{{ msg.msg }}</p>
+</div>

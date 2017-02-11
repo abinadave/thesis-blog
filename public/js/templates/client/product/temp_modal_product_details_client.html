@@ -1,0 +1,106 @@
+<style type="text/css">
+	.title-item-details {
+		color: #8792ba;
+	    font-weight: 400;
+	    font-size: 28px;
+	    line-height: 36px;
+	    font-family: 'Old Standard TT', 'Open Sans';
+        font-style: italic;
+	}
+	.item-price-details {
+		font-weight: 400;
+	    line-height: 1;
+	    color: #777;
+	}
+	.item-btns-details {
+		margin-left: 10px;
+	}
+</style>
+    <div class="modal fade" id="modal-product-details" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 900px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button @click="prevItem()" class="btn btn-default" style="border-radius: 15px">
+	                    <span class="glyphicon glyphicon-arrow-left text-warning"></span>
+	                    Previous
+                    </button>
+                    <button @click="nextItem()" class="btn btn-default pull-right" style="border-radius: 15px">
+	                    Next
+	                    <span class="glyphicon glyphicon-arrow-right text-warning"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+			          <div class="row">
+
+				            <div class="col-md-6">
+		                      <img style="cursor: pointer; width: 445px; height: 667px" :src="'uploads/products/' + item.filename">
+				            </div>
+
+				            <div class="col-md-6" style="padding: 25px">
+				                
+				                <div class="text-center">
+					                <h1 class="title-item-details">
+			                           <span v-text="item.title | lowercase"></span>
+			                        </h1>
+			                        <span class="item-price-details">{{ item.prize | currency 'Php ' }} </span>
+				                </div>
+
+				                <br>
+				                <b>Color {{ item.id }}</b>
+				                
+				                <select v-model="item.color" class="form-control">
+				                	<option v-for="color in colors | filterBy item.id in 'pid'">{{ color.color }}</option>
+				                </select>
+
+				                <br>
+
+				                <b>Size</b><br>
+                                <button @click="selectSize(size.size, $event)" class="btn btn-sm item-btns-details" v-for="size in assignSize(item.id)">
+                                    {{ size.size }}
+                                </button>
+                                <br><br><br>
+
+                                <button @click="reserveThisItem(item)" class="btn btn-info btn-lg">
+                                    <i v-bind:class="{ 'fa fa-circle-o-notch fa-spin fa-fw' : isLoading }"></i>
+                                    RESERVE
+                                </button>
+
+                                <br><br>
+
+                                 <div class="">
+			                        <div class="panel-body">
+			                            <ul class="nav nav-tabs">
+			                                <li class="active"><a href="#home" data-toggle="tab">
+			                                   Description
+			                                </a>
+			                                </li>
+			                                <li><a href="#profile" data-toggle="tab">Other</a>
+			                                </li>
+			                                
+			                            </ul>
+
+			                            <div class="tab-content">
+
+			                                <div class="tab-pane fade in active" id="home">
+			                                    <span v-text="item.description"></span>
+			                                </div>
+			                                <div class="tab-pane fade" id="profile">
+			                                    <h4>Profile Tab</h4>
+			                                </div>
+			                                
+			                            </div>
+			                        </div>
+			                    </div>
+
+				            </div>
+
+			          </div>
+
+                </div>
+                <div class="modal-footer" style="border-color: transparent">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>

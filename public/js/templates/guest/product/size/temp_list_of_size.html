@@ -1,0 +1,10 @@
+<div class="container">
+	<ul>
+		<li v-for="value in size_names">
+			<a style="cursor: pointer;" @click="getProductsWhereFrontEnd(value);">{{ value | uppercase }}</a>
+		</li>
+		<li>
+			<a style="cursor: pointer" @click="getProductsWhereCid()">Clear Sort Size</a>
+		</li>
+	</ul>
+</div>

@@ -1,0 +1,59 @@
+
+<br><br>
+<div class="container">
+	<h2 class="page-header text-primary" style="font-style: italic;">Get in touch!</h2>
+	<div class="col-md-6">
+		<h3 class="text-primary">Have A question?</h3>
+		<table class="table table-hover">
+			<tr>
+			    <td><i class="fa fa-mobile fa-5x"></i></td>
+			    <td>
+			    	Give Us a Call <br>
+			    	<span class="text-primary">0997-009-2321</span><br>
+			    	<span class="text-primary">From 8 am to 5 pm CST<br>
+					Monday - Friday</span>
+			    </td>
+			</tr>
+			<tr>
+			    <td><i class="fa fa-envelope fa-3x"></i></td>
+			    <td>
+			    	Email Us <br>
+			    	<span class="text-primary"><a href="">onlineboutiqueshop@gmail.com</a></span><br>
+			    	<span class="text-primary">We will respond within business hours between 8:00 a.m. and 5:00 p.m. CST Monday through Friday excluding holidays</span>
+			    </td>
+			</tr>
+			<tr>
+			    <td><i class="fa fa-globe fa-3x"></i></td>
+			    <td>
+			    	Mailing Address <br>
+			    	<span class="text-primary">Online Boutique, blogging, event scheduling</span><br>
+			    	<span class="text-primary">corner M.H del Pilar and P. Burgos St.,<br> Tacloban City</span>
+			    </td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="col-md-6">
+		<h3 class="text-primary">Send a message from here</h3>
+		<form @submit.prevent="submitContactForm()">
+		    <label>
+		    	Your name
+		    </label>
+		    <input v-model="form.name" type="text" class="form-control" autofocus><br>
+		    <label>
+		    	Email
+		    </label>
+		    <input v-model="form.email" type="email" class="form-control"><br>
+		    <label>
+		    	Phone number
+		    </label>
+		    <input v-model="form.phone" type="text" class="form-control" placeholder=""><br>
+		    <label>
+		    	Message
+		    </label>
+		    <textarea v-model="form.message" style="margin: 0px -16px 0px 0px; height: 70px; width: 555px;" class="form-control"></textarea>
+		    <br>
+		    <button type="submit" class="btn btn-lg btn-default">Submit <i :class="{ 'glyphicon glyphicon-send': !isSending, 'fa fa-circle-o-notch fa-spin fa-fw' : isSending }"></i></button>
+		</form>
+	</div>
+</div>

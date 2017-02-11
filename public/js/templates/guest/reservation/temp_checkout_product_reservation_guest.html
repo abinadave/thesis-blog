@@ -1,0 +1,39 @@
+<div class="col-md-6" style="padding: 20px; overflow: auto; margin-top: 50px">
+    <div style="height: 1000px">
+        <h2>Online Women's Clothing Boutique</h2>
+        <span class="text-primary">Cart</span>
+        <form style="margin-top: 30px;">
+            <h4>Customer Information</h4>
+            <input v-model="form.email" style="width: 581px" type="text" class="form-control input-lg" placeholder="Email" />
+            <span>Already have an account with us? Already have an account with us? <b class="text-primary"><a @click="showLoginForm" style="cursor: pointer">Log in</a></b></span>
+            <br><br>
+            <h4>Customer Address</h4>
+            <input v-model="form.firstname" type="text" class="form-control input-lg" placeholder="First name" style="width: 289px; display: inline;" />
+            <input v-model="form.lastname" type="text" class="form-control input-lg" placeholder="Last name" style="width: 289px; display: inline;" />
+            <br><br>
+            <input v-model="form.company" type="text" class="form-control input-lg" placeholder="Company name" style="width: 581px;"/>
+            <br>
+            <input v-model="form.address" type="text" class="form-control input-lg" placeholder="Address" style="width: 581px;"/>  
+            <br>
+            <input v-model="form.city" type="text" class="form-control input-lg" placeholder="City" style="width: 581px;"/> 
+            <br>
+            <input v-model="form.postal" type="text" class="form-control input-lg" placeholder="Postal code" style="width: 289px; display: inline;" />
+            <input v-model="form.phone" type="text" class="form-control input-lg" placeholder="Phone (optional)" style="width: 289px; display: inline;" />                         
+            <br><br>
+            <input type="checkbox" v-model="checked" /> Save this information for next time
+            <br><br>
+            <div v-show="passwordField">
+                <input type="password" class="form-control input-lg" v-model="form.password" placeholder="Account password" />
+                <br>
+                <input type="password" class="form-control input-lg" v-model="form.password_confirmation" placeholder="Re-type password" />
+                <br><br>
+            </div>
+            <a style="margin-top: 20px; cursor: pointer; text-decoration: none">Return to cart</a>
+            <button @click.prevent="proceedReservation()" type="submit" class="btn btn-primary btn-lg pull-right">
+                 Continue Reservation
+                 <i v-bind:class="{ 'fa fa-circle-o-notch fa-spin fa-fw' : isSaving }"></i>
+            </button>
+        </form>
+    </div>  
+</div>
+<modal-login :carts="carts"></modal-login>

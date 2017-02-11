@@ -1,0 +1,86 @@
+<div class="col-lg-12">
+    <div class="panel panel-primary" style="font-size: 12px">
+        <div class="panel-heading">
+            Reservation list <span class="badge">{{ reservations.length }}</span>
+            <input v-model="search" type="text" class="input-sm form-control pull-right" style="width: 200px; margin-top:-5px; border-radius: 13px" placeholder="Search reservation here..">
+        </div>
+        <div class="panel-body">
+                
+                <ul class="nav nav-pills">
+                    <li class="active"><a href="#todaysReservation" data-toggle="tab">Today</a>
+                    </li>
+                    <li><a href="#allReservation" data-toggle="tab">All</a>
+                    </li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div :todaysReservation="filterTodayReservation" class="tab-pane fade in active" id="todaysReservation">
+                        <table class="table table-hover table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Fullname</th>
+                                    <th>Company</th>
+                                    <th>Address</th>
+                                    <th>City</th>
+                                    <th class="text-center">Postal Code</th>
+                                    <th class="text-center">Phone number</th>
+                                    <th class="text-center">Items</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="cursor: pointer;" @click="showCarts(item)" v-for="item in todaysReservation | filterBy search in 'firstname' 'lastname' 'company' 'address' 'city' 'postal' 'phone'">
+                                   <td>{{ getFullname(item) | uppercase }}</td>
+                                   <td>{{ item.company | uppercase }}</td>
+                                   <td>{{ item.address | uppercase }}</td>
+                                   <td>{{ item.city | uppercase }}</td>
+                                   <td class="text-center">{{ item.postal }}</td>
+                                   <td class="text-center">{{ item.phone }}</td>
+                                   <td class="text-center">{{ getTotalItems(item) }}</td>
+                                </tr>
+                                <tr v-show="todaysReservation === 0">
+                                    <td colspan="7">No reservation was found today.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="tab-pane fade" id="allReservation">
+                    <br><br>
+                        <table class="table table-hover table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Fullname</th>
+                                    <th>Company</th>
+                                    <th>Address</th>
+                                    <th>City</th>
+                                    <th class="text-center">Postal Code</th>
+                                    <th class="text-center">Phone number</th>
+                                    <th class="text-center">Items</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="cursor: pointer;" @click="showCarts(item)" v-for="item in reservations | filterBy search in 'firstname' 'lastname' 'company' 'address' 'city' 'postal' 'phone'">
+                                   <td>{{ getFullname(item) }}</td>
+                                   <td>{{ item.company }}</td>
+                                   <td>{{ item.address }}</td>
+                                   <td>{{ item.city }}</td>
+                                   <td class="text-center">{{ item.postal }}</td>
+                                   <td class="text-center">{{ item.phone }}</td>
+                                   <td class="text-center">{{ getTotalItems(item) }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                   
+                </div>
+        </div>
+        <div class="panel-footer">
+            <!-- Panel Footer -->
+        </div>
+    </div>
+</div>
+
+<reservation-items :items="filteredItems" :products="$parent.products"></reservation-items>
+
+                        

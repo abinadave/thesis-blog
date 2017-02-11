@@ -1,0 +1,65 @@
+	<div class="modal fade" id="modal-update-product" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	    <div class="modal-dialog" style="width: 520px">
+	      <form @submit.prevent="updateItem">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	                <h4 class="modal-title" id="myModalLabel">Item Details</h4>
+	            </div>
+	            <div class="modal-body">
+	               <div id="file-uploader-demo1">		
+						<noscript>			
+							<p>Please enable JavaScript to use file uploader.</p>
+						</noscript>         
+					</div>
+					<div class="qq-upload-extra-drop-area">Drop files here too</div>
+	                    <label>
+	                        Product Title
+		                	<input v-model="item.title" type="text" class="form-control"  style="width: 430px">
+		                </label><br>
+		                <label>
+			            	Price
+			            	<input v-model="item.prize" type="text" class="form-control">
+			            </label>
+		                <label>
+		                    category
+		                	<select v-model="item.category" class="form-control" style="width: 214px">
+		                	    <option disabled selected>Select category</option>
+		                		<option value="{{ cat.id }}" v-for="cat in categories">
+		                			{{ cat.name }}
+		                		</option>
+		                	</select>
+		                </label>
+		                <br>
+		            	
+			            <label>Color<br>
+				            <input id="tags-colors" type="text" v-model="getColors" class="form-control the-tags">
+			            </label>
+			            <span>
+		            	
+		            	<label>Size<br>
+				            <input v-model="getSizes" id="tags-sizes" type="text" class="form-control the-tags">
+			            </label><br>
+			            
+			            <label>Description
+				            <textarea v-model="item.description" class="form-control" rows="5" cols=60" placeholder="Additional description of product"></textarea>
+			            </label><br>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+					<button class="btn btn-sm btn-default" @click="showImage()">view image</button>
+	                <button @click="deleteItem()" type="button" class="btn btn-sm btn-danger">Delete <i class="fa fa-trash"></i></button>
+	                <button type="submit" class="btn btn-sm btn-primary">Save changes</button>
+            	    <div style="margin: 25px" v-show="confirmDeletion" class="alert alert-danger alert-dismissable">
+            	        <button @click="confirmDeletion = false" type="button" class="close" aria-hidden="true">&times;</button>
+            	        Are you sure you want to delete this item ?
+            	        <a style="cursor: pointer" @click="removeItemYes()">Yes</a>
+            	    </div>
+
+	            </div>
+	        </div>
+	        <!-- /.modal-content -->
+	       </form> 
+	    </div>
+	    <!-- /.modal-dialog -->
+	</div>

@@ -1,0 +1,46 @@
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>Client Feedbacks <small>table</small></h2>
+        <ul class="nav navbar-right panel_toolbox">
+          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#">Settings 1</a>
+              </li>
+              <li><a href="#">Settings 2</a>
+              </li>
+            </ul>
+          </li>
+          <li><a class="close-link"><i class="fa fa-close"></i></a>
+          </li>
+        </ul>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+       
+        <table id="datatable" class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>Client name</th>
+              <th>Message</th>
+              <th>Email address</th>
+              <th class="text-center">Phone Number</th>
+              <th class="text-center">Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="msg in messages">
+              <td>{{ msg.name | uppercase }}</td>
+              <td>{{ msg.message.substr(0,30) }}....</td>
+              <td>{{ msg.email }}</td>
+              <td class="text-center">{{ msg.phone }}</td>
+              <td class="text-center">{{ getTrueDate(msg.date) }} <label class="label label-info">{{ parseDate(msg.date) }})</label></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>

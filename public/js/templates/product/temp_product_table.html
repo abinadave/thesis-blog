@@ -1,0 +1,106 @@
+
+        <!-- page content -->
+        <div>
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                   <div class="col-md-9 col-sm-9 col-xs-12">
+                      <select class="select2_single form-control" tabindex="-1">
+                        <option value="0">All</option>
+                        <option value="{{ cat.id }}" v-for="cat in categories">{{ cat.name }}</option>
+                      </select>
+                    </div>
+              </div>
+
+              <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  <div class="input-group">
+                    <input v-model="search" type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Product Lists</h2>
+                    <select v-model="displayByWhat" style="margin-left: 30px">
+                       <option value="photos" selected>Display by photos</option>
+                       <option value="details">Display in details</option>
+                    </select>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content" :fitleredProducts="getFilteredProducts()">
+
+                    <div class="row">
+
+                      <p>Product count: <span class="badge">{{ (typeof filteredProducts === 'object') ? filteredProducts.length : '0' }}</span></p>
+                      
+                      <display-in-details 
+                        v-show="displayInDetails"
+                        :subs="subs"
+                        :categories="categories"
+                        :stocks.sync="stocks"
+                        :products.sync="products"
+                        :search="search"
+                      ></display-in-details>
+
+                      <div v-show="!displayInDetails" class="col-md-55" v-for="item in filteredProducts | filterBy search in 'title' 'description' 'prize'">
+                        <div class="thumbnail">
+                          <div class="image view view-first">
+                            <img style="width: 100%; display: block;" :src="'uploads/products/' + item.filename" alt="image" />
+                            <div class="mask">
+                              <p></p>
+                              <div class="tools tools-bottom">
+                                <a href="#"><i class="fa fa-link"></i></a>
+                                <a @click="editProduct(item)" style="cursor: pointer" title="click this product to update"><i class="fa fa-pencil"></i></a>
+                                <a @click="removeProduct(item)" style="cursor: pointer"><i class="fa fa-times"></i></a>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="caption">
+                            <b class="text-info">{{ item.prize | currency '' }}</b>
+                            <p>{{ item.title.substr(0, 20) }}....</p>
+                          </div>
+                        </div>
+                        <div class="text-center" style="margin-top: -15px">{{ getCname(item.category) }} ({{ getCurrentStock(item) }})</div>
+                      </div>
+                      
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /page content -->
+        <modal-update-category  
+            :colors="modalUpdateItemColors" 
+            :sizes="modalUpdateItemSizes" 
+            :products.sync="products" 
+            :categories="categories" 
+            :item="modalUpdateItemProps">
+        </modal-update-category>

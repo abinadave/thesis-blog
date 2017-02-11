@@ -1,0 +1,49 @@
+<div class="col-md-9 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>Create Blog <small>Post</small></h2>
+        <ul class="nav navbar-right panel_toolbox">
+          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#">Settings 1</a>
+              </li>
+              <li><a href="#">Settings 2</a>
+              </li>
+            </ul>
+          </li>
+          <li><a class="close-link"><i class="fa fa-close"></i></a>
+          </li>
+        </ul>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <br />
+        <div id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+
+          <div style="font-size: 11px">
+  					<label>Title <br></label>
+  					<input v-model="post.title" style="width: 500px" type="text" class="form-control input-sm" placeholder="sample-title-for-blog-posts">&nbsp;&nbsp;&nbsp;
+  					<br>
+            <label>Category &nbsp;&nbsp;</label>
+            <input v-model="post.category" type="text" class="form-control input-sm blog-categories" style="width: 230px; ">
+            <br>
+  					<label >Tags&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+  					<input style="width: 230px;" type="text" class="form-control input-sm blog-tags"><br>
+  					
+            <form action="form_upload.html" class="dropzone"></form>
+            
+            <button @click="uploadTemporaryFiles()" class="btn btn-success btn-xs" type="button">Images</button> <br><br> 					
+            <textarea v-model="post.body" class="form-control ckeditor" cols="30" id="editor1" name="editor1" rows="10"></textarea>
+  				
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <temp-img-blog-post></temp-img-blog-post>
+
+  

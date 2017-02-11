@@ -1,0 +1,32 @@
+<style type="text/css">
+	#owl-demo img {
+		cursor: pointer; width: 320px; height:480px;
+		padding: 10px;
+	}
+	#owl-demo img:hover {
+	    opacity: 0.7;
+	    filter: alpha(opacity=100);
+	}
+	.whats-new {
+		    color: #8792ba;
+		    font-weight: 400;
+		    font-size: 28px;
+		    line-height: 36px;
+		    font-family: 'Old Standard TT', 'Open Sans';
+		    font-style: italic;
+	}
+
+</style>
+<div class="container">
+	<h3 class="text-center whats-new" style="font-style: italic;">Whats New</h3>
+</div>
+<div id="owl-demo">
+          
+  <div class="item" v-for="item in products" >
+	 <img class="img-rounded" :src="'uploads/products/' + item.filename">
+	 <div class="text-center">
+	    <span class="text-info">{{ item.title }}</span>
+	 	<small><h6 class="prize">{{ item.prize | currency 'Php ' }}</h6></small>
+	 </div>
+  </div>
+</div>

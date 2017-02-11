@@ -1,0 +1,109 @@
+<br><br><br><br>
+<div class="col-lg-3" style="margin-top: 20px">
+	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne">
+              <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  Price
+                </a>
+              </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+              <div class="panel-body">
+                <a  style="cursor: pointer" @click="filterItemsByPrice(0, 240)">Php 0 - 240</a><br>
+                <a  style="cursor: pointer" @click="filterItemsByPrice(241, 453)">Php 241 - 453</a><br>
+                <a  style="cursor: pointer" @click="filterItemsByPrice(454, 865)">Php 454 - 865</a><br>
+                <a  style="cursor: pointer" @click="filterItemsByPrice(866, 1505)">Php 866 - 1505</a><br>
+                <a  style="cursor: pointer" @click="filterItemsByPrice(1506, 5250)">Php 1506 - 5250</a><br>
+                <a  style="cursor: pointer" @click="filterItemsByPrice(5255, 10000)">Php 5255+</a><br>
+                <a  style="cursor: pointer" @click="displayAll()">Clear Sorted Price</a>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingTwo">
+              <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  Size
+                </a>
+              </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+              <div class="panel-body">
+                 <sizes-of-category></sizes-of-category>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingThree">
+              <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  Sort
+                </a>
+              </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+              <div class="panel-body">
+				<ul>
+					<li>
+						<a href="">Sort A-Z</a><br>
+						<a href="">Sort Z-A</a><br>
+					</li>
+					<li>
+						<a style="cursor: pointer" @click="getProductsWhereCid()">Clear Sort Size</a>
+					</li>
+				</ul>
+              </div>
+            </div>
+          </div>
+        </div>	
+</div>
+      
+
+<div class="col-lg-9">
+
+<!-- Input searchbox -->
+<div style="margin-left: 20px; width: 40%">
+	<div class="input-group">
+		  <span class="input-group-btn">
+		    <button class="btn btn-default" type="button">Go!</button>
+		  </span>
+		  <input type="text" v-model="search" class="form-control" placeholder="Search for...">
+	</div>
+</div>
+<!-- Input searchbox -->
+
+	    	<div style="padding: 20px" :filtered="filterProducts">
+
+                    <div v-for="item in filtered | filterBy search in 'title' 'prize' 'description' | orderBy 'id' -1" class="col-sm-4 col-lg-4 col-md-4">
+                        <div class="thumbnail">
+                          <img class="img-thumbnail" @click="showItem(item)" style="cursor: pointer; width: 260px; height: 340px" :src="'uploads/products/' + item.filename">
+                            <div class="caption">
+                                <h4 class="pull-right">{{ item.prize | currency '' }}</h4>
+                                <h4><a href="#" style="display: none">-</a>
+                                </h4>
+                                <p class="text-primary">{{ item.title | uppercase }}</p>
+                                <p >{{ item.description }}</p>
+                            </div>
+                            <div class="ratings">
+                                <p class="pull-right">{{ getReviews() }} reviews</p>
+                                <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div v-show="!filtered.length" class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        No data was found for <a href="#" class="alert-link">{{ $route.params.name }} / {{ search }}</a>.
+                    </div>
+
+</div>         
+
+<modal-product-details :colors="colors"></modal-product-details>
