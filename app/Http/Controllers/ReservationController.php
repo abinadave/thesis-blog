@@ -29,7 +29,6 @@ class ReservationController extends Controller
        }
     }
 
-
     public function insert(Request $request){
       $this->validate($request, [
           'email'       => 'required|max:100|min:4',
@@ -49,6 +48,7 @@ class ReservationController extends Controller
     	$reservation->city = $request->input('city');
     	$reservation->postal = $request->input('postal');
     	$reservation->phone = $request->input('phone');
+      $reservation->user_id = $request->input('user_id');
     	$reservation->save();
         return response()->json([
             'model' => $reservation

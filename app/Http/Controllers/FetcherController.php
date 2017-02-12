@@ -8,6 +8,12 @@ use App\Http\Requests;
 use DB;
 class FetcherController extends Controller
 {
+    public function eventCategoriesManagement(){
+        return response()->json([
+            'event_categories' => DB::table('event_categories')->get()
+        ]);
+    }
+
     public function productManagementGuest(){
        return $this->categoryMnagment();
     }

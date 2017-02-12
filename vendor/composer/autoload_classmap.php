@@ -24,6 +24,8 @@ return array(
     'CreateCategoryTable' => $baseDir . '/database/migrations/2016_09_30_141303_create_category_table.php',
     'CreateColorsTable' => $baseDir . '/database/migrations/2016_10_02_133550_create_colors_table.php',
     'CreateConversationsTable' => $baseDir . '/database/migrations/2016_10_20_123613_create_conversations_table.php',
+    'CreateEventCategoriesTable' => $baseDir . '/database/migrations/2017_02_11_121753_create_event_categories_table.php',
+    'CreateEventsTable' => $baseDir . '/database/migrations/2017_02_11_114533_create_events_table.php',
     'CreateMessagesTable' => $baseDir . '/database/migrations/2016_10_09_141004_create_messages_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreateProductsTable' => $baseDir . '/database/migrations/2016_10_01_131646_create_products_table.php',

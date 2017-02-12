@@ -282,6 +282,8 @@ class ComposerStaticInitc32bbbc52b54292c09c47c98e4d26100
         'CreateCategoryTable' => __DIR__ . '/../..' . '/database/migrations/2016_09_30_141303_create_category_table.php',
         'CreateColorsTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_02_133550_create_colors_table.php',
         'CreateConversationsTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_20_123613_create_conversations_table.php',
+        'CreateEventCategoriesTable' => __DIR__ . '/../..' . '/database/migrations/2017_02_11_121753_create_event_categories_table.php',
+        'CreateEventsTable' => __DIR__ . '/../..' . '/database/migrations/2017_02_11_114533_create_events_table.php',
         'CreateMessagesTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_09_141004_create_messages_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
         'CreateProductsTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_01_131646_create_products_table.php',

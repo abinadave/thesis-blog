@@ -9,6 +9,13 @@ define([
     var self = this;
 
 	router.map({
+
+		'/Event/Category': {
+			name: 'event-categories',
+			component(resolve){
+				require(['components/admin/event/category/comp_event_category_management'], resolve);
+			}
+		},
 		'/Receiving': {
 			name: 'receiving',
 			component(resolve){

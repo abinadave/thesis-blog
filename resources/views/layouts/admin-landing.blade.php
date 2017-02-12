@@ -54,7 +54,7 @@
                       <li><a v-link="{ name: 'trahsed-products' }">Trashed items</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-database"></i> Categories <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-users" aria-hidden="true"></i> Categories <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                      <li><a v-link="{ name: 'addcategory' }">Add Category</a></li>
                       <li><a v-link="{ name: 'category-list' }">Category List</a></li>
@@ -65,6 +65,11 @@
                     <ul class="nav child_menu">
                        <li><a v-link="{ name: 'createblog' }">Create blog</a></li>
                        <li><a v-link="{ name: 'recent-blog' }">Recent blog</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-calendar" aria-hidden="true"></i> Events<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a v-link="{ name: 'event-categories'  }">Categories</a></li>
                     </ul>
                   </li>
                   <li><a v-link="{ name: 'reservations' }"><i class="text-info glyphicon glyphicon-tasks"></i>&nbsp;&nbsp;&nbsp; Reservations</a></li> 

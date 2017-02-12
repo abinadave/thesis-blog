@@ -8,9 +8,13 @@ define(['vue','vue-resource',
 
     var Component = Vue.extend({
     	template: template,
+        props: {
+            carts: {
+                type: Array
+            }
+        },
     	data: function(){
     		return {
-                carts: [],
     			form: {
     				email: '',
     				firstname: '',
@@ -66,7 +70,7 @@ define(['vue','vue-resource',
                         if (resp.status === 200) {
                             var user = JSON.parse(resp.body);
                             self.form.user_id = user.id;
-                            self.saveReservation();
+                            self.saveReservation(user);
                         }
                     }, (resp) => {
                         if (resp.status === 422) {
@@ -83,8 +87,9 @@ define(['vue','vue-resource',
                 }
     		},
 
-            saveReservation(){
+            saveReservation(user){
                 var self = this;
+                console.log(user)
                 self.$http.post('/reservation', self.form).then( (resp) => {
                     if (resp.status === 200) {
                         var json = JSON.parse(resp.body);
@@ -114,13 +119,13 @@ define(['vue','vue-resource',
             saveCarts(rid){
                 var self = this;
                 self.$http.post('/carts', { 
-                    carts: self.$parent.parentCarts,
+                    carts: self.carts,
                     reservation_id: rid
                 }).then((resp) => {
                     if (resp.status === 200) {
                         var json = JSON.parse(resp.body);
-                        if (json.saved === self.$parent.parentCarts.length) {
-                            self.$parent.parentCarts = [];
+                        if (json.saved === self.carts.length) {
+                            self.carts = [];
                             router.go({name: 'home'});
                             require(['alertify'], function(alertify){
                                 alertify.success('Reservation successfully saved');

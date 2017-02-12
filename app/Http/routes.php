@@ -56,6 +56,8 @@ Route::group(['middleware' => 'web'], function(){
 	Route::get('temporary/list_of_files', 'UserController@getListOfFilesTempFolderBlog');
 	Route::get('blogManagement', 'FetcherController@blogManagement');
 	Route::get('blog/recent', 'BlogController@fetchRecentArticles');
+	Route::post('event/category', 'EventCategoryController@insert');
+	Route::get('categories/even/management', 'FetcherController@eventCategoriesManagement');
 });
 
 Route::group(['middleware' => 'guest'], function(){

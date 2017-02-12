@@ -31,7 +31,9 @@ define(['vue',
             checkOutItems(){
                 let self = this;
                 $('#modal-product-details').modal('hide');
+                $('#modal-reservation-guests').modal('hide');
                 self.$emit('checkout');
+                alert('checking out')
             }
         }
 

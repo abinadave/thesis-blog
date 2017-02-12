@@ -16,6 +16,13 @@ define([
             },
         },
 
+        '/Events' : {
+            name: 'events',
+            component: function(resolve){
+                require(['components/guest/event/comp_create_event_guest'], resolve);
+            },
+        },
+
         '/Products': {
             name: 'products',
             component(resolve){

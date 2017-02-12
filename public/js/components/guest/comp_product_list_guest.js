@@ -52,7 +52,7 @@ define([
                 :carts="carts"
             ></modal-all-reservations>
             <div v-show="checkingOut === true">
-                <checkout-carts></checkout-carts>
+                <checkout-carts :carts="carts"></checkout-carts>
             </div>
         `,
     	data: function(){
@@ -87,7 +87,7 @@ define([
     	methods: {
             checkoutItems(){
                 let self = this;
-                console.log('checkout items');
+                self.checkingOut = true;
             },
             saveToCart(cart){
                 let self = this;
