@@ -8,6 +8,20 @@ use App\Http\Requests;
 use DB;
 class FetcherController extends Controller
 {
+    public function fetchRecentBlog(){
+        return response()->json([
+            'blogs' => \App\Blog::orderBy('id','desc')->get()   
+        ]);
+    }
+
+    public function eventAdminManagement(){
+        return response()->json([
+            'users' => \App\User::all(),
+            'event_categories' => \App\EventCategory::all(),
+            'events' => \App\Event::orderBy('id','desc')->get()
+        ]);
+    }
+
     public function eventCategoriesManagement(){
         return response()->json([
             'event_categories' => DB::table('event_categories')->get()

@@ -70,6 +70,7 @@
                   <li><a><i class="fa fa-calendar" aria-hidden="true"></i> Events<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a v-link="{ name: 'event-categories'  }">Categories</a></li>
+                      <li><a v-link="{ name: 'event-reservations'  }">Reservations</a></li>
                     </ul>
                   </li>
                   <li><a v-link="{ name: 'reservations' }"><i class="text-info glyphicon glyphicon-tasks"></i>&nbsp;&nbsp;&nbsp; Reservations</a></li> 

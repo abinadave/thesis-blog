@@ -12,7 +12,8 @@
 */
 
 Route::group(['middleware' => 'web'], function(){
-
+	Route::get('comment/{id}', 'CommentController@fetchProductComment');
+	Route::post('comment/new', 'CommentController@insert');
 	Route::get('/', 'UserController@showWelcome');
 	Route::auth();
 	Route::get('/home', 'HomeController@index');
@@ -58,6 +59,10 @@ Route::group(['middleware' => 'web'], function(){
 	Route::get('blog/recent', 'BlogController@fetchRecentArticles');
 	Route::post('event/category', 'EventCategoryController@insert');
 	Route::get('categories/even/management', 'FetcherController@eventCategoriesManagement');
+	Route::get('event/admin', 'FetcherController@eventAdminManagement');
+	Route::delete('blog/{id}', 'BlogController@destroy');
+	Route::get('product/reservation/client', 'ProductController@fetchClientReservations');
+	Route::get('event/reservations/client', 'EventController@fetchClientReservations');
 });
 
 Route::group(['middleware' => 'guest'], function(){
@@ -74,4 +79,7 @@ Route::group(['middleware' => 'guest'], function(){
 	Route::post('login/hasccount', 'UserController@loginHasAccountForReservation');
 	Route::get('product/management/guest', 'FetcherController@productManagementGuest');
 	Route::get('product/management/color_and_size', 'FetcherController@colorAndSizes');
+	Route::post('event', 'EventController@createEvent');
+	Route::post('event/login', 'EventController@validateAccountFirst');
+	Route::get('blog/recent', 'FetcherController@fetchRecentBlog');
 });

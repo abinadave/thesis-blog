@@ -41,10 +41,12 @@ class UserController extends Controller
 		$count = \App\User::where('email', $email)->count();
 		if ($count) {
 			$user = \App\User::where('email', $email)->first();
-			$reservation = $this->saveReservation($user);
-			$this->saveCarts($user, $reservation, $items);
-			redirect('/');
-			// return $reservation;
+			$carts = $this->saveCarts($user, $items);
+			return response()->json([
+				'saved' => true
+			]);
+		}else {
+			echo "Cant find user with email: $email";
 		}
 	}
 
@@ -65,11 +67,11 @@ class UserController extends Controller
 		}
 	}
 
-	public function saveCarts($user, $reservation, $itemCarts){
+	public function saveCarts($user, $itemCarts){
 		foreach ($itemCarts as $key => $item) {
 			$cart = new Cart;
 			$cart->client_id = $user->id;
-			$cart->reservation_id = $reservation->id;
+			$cart->reservation_id = 0;
 			$cart->product_id = $item['id'];
 			$cart->color = $item['color'];
 			$cart->size = $item['size'];

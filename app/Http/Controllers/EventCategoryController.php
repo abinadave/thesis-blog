@@ -20,6 +20,6 @@ class EventCategoryController extends Controller
     }
 
     public function fetch(){
-    	return EventCategory::orderBy('id','desc')->get()
+    	return EventCategory::orderBy('id','desc')->get();
     }
 }

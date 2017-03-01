@@ -14,7 +14,18 @@ define([
                 require(['components/guest/comp_home_for_guest'], resolve);
             },
         },
-
+        '/EventReservations': {
+            name: 'event-reservation',
+            component: function(resolve){
+                require(['components/client/reservation/event/my_reservations_client'], resolve)
+            }
+        },
+        '/Product/Reservation': {
+            name: 'product-reservation',
+            component: function(resolve){
+                require(['components/client/reservation/product/my_products_reservations_client'], resolve)
+            }
+        },
         '/GuestReservation': {
             name: 'proceedGuestReservation',
             component: function(resolve){

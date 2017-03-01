@@ -33,8 +33,7 @@ define([
                 <div class="col-md-9">
                     <div style="display: inline">
                         <filtered-products 
-                            @clickitem="setItemToModal" 
-
+                            @clickitem="setItemToModal"
                             :products="products" 
                             :sci="sci">
                         </filtered-products>                        

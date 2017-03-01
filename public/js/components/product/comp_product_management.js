@@ -9,6 +9,7 @@ define(['vue','vue-resource',
     	template: template,
     	data: function(){
     		return {
+                selectedSizes: [],
                 sub_categories: [],
                 categories: [], products: [], sizes: [], colors: [],
                 selected_cat: 0,
@@ -100,9 +101,11 @@ define(['vue','vue-resource',
     		saveProduct(event){
     			event.preventDefault();
     			var self = this;
-                self.arrangeColos(); self.arrangeSize(); self.clearErrors();
+                self.arrangeColos(); self.clearErrors();
                 var errors = self.validateColorsAndSizes();
+                self.form.size = self.selectedSizes;
                 if (errors.length === 0) {
+                    console.log(self.form.color);
         			self.$http.post('/product', self.form).then( (resp) => {
                         self.afterSave(resp);
         			}, (resp) => {
@@ -124,12 +127,9 @@ define(['vue','vue-resource',
                 var self = this;
                 var errors = [];
                 let colors = $('#colors-div').find('span.tag').length;
-                let sizes = $('#sizes-div').find('span.tag').length;
+                console.log('selected colors: ' + colors);
                 if (!colors) {
                     errors.push('Please enter a color for this item');
-                }
-                if (!sizes) {
-                    errors.push('Please enter a size for this item');
                 }
                 return errors;   
             },
@@ -170,7 +170,7 @@ define(['vue','vue-resource',
                 });
             },
 
-            arrangeSize(){
+            arrangeColos(){
                 var self = this;
                 let text = '', colors = '';
                 $('#colors-div').find('span.tag').each(function(){
@@ -184,23 +184,8 @@ define(['vue','vue-resource',
                     self.form.color = [];
                 }
                 self.form.color.pop();
-            },
+            }
 
-    		arrangeColos(){
-    			var self = this;
-                let text = '', sizes = '';
-                $('#sizes-div').find('span.tag').each(function(){
-                    text = $(this).text().replace('x','').trim();
-                    text += ',';
-                    sizes += text;
-                });
-                if (sizes) {
-                    self.form.size = sizes.split(',');
-                }else {
-                    self.form.size = [];
-                }
-                self.form.size.pop();
-    		}
 
     	}
     });

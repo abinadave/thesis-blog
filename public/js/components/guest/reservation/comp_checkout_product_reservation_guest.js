@@ -42,7 +42,6 @@ define(['vue','vue-resource',
 
         watch: {
             'checked': function(newVal){
-                /* savedInformation */
                 this.passwordField = newVal;
             }
         },
@@ -53,7 +52,7 @@ define(['vue','vue-resource',
             showLoginForm(){
                 let self = this;
                 $('#modal-login').modal('show');
-                self.carts = self.$parent.parentCarts;
+                window.carts = self.carts;
             },
     		proceedReservation(){
     			var self = this;

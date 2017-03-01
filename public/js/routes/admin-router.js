@@ -10,6 +10,13 @@ define([
 
 	router.map({
 
+		'/Event/Reservations': {
+			name: 'event-reservations',
+			component(resolve){
+				require(['components/admin/event/temp_events_reservations_list_admin'], resolve)
+			}
+		},
+
 		'/Event/Category': {
 			name: 'event-categories',
 			component(resolve){
@@ -82,7 +89,7 @@ define([
 		'/Blog/Recent': {
 			name: 'recent-blog',
 			component(resolve){
-				console.log(resolve);
+				require(['components/admin/blog/recent-blog'], resolve);
 			}
 		},
 

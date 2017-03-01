@@ -17,8 +17,9 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a style="color: #000;" v-link="{ path: '/'} ">Account</a></li>
-            <category-list></category-list>
+            <li><a v-link="{ path: '/Blog' }">Blog</a></li>
+            <li><a v-link="{ name: 'event-reservation' }">Event Reservations</a></li>
+            <li><a v-link="{ name: 'product-reservation' }">Product Reservations</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">

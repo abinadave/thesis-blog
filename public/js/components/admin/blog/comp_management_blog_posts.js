@@ -37,13 +37,12 @@ define(['vue','vue-resource',
                 <div style="font-size: 11px">
                   <label>Title <br></label>
                   <input v-model="post.title" style="width: 500px" type="text" class="form-control input-sm" placeholder="sample-title-for-blog-posts">&nbsp;&nbsp;&nbsp;
-                  <div id="file-uploader-demo1">    
-                    <noscript>      
-                      <p>Please enable JavaScript to use file uploader.</p>
-                    </noscript>         
-                  </div>
+                    <div id="file-uploader-demo1">    
+                      <noscript>      
+                        <p>Please enable JavaScript to use file uploader.</p>
+                      </noscript>         
+                    </div>
                   <br>
-                 
                   <textarea v-model="post.body" class="form-control ckeditor" cols="30" id="editor1" name="editor1" rows="5"></textarea>
                   <button :disabled="posting" @click="savePost()" type="button" class="btn btn-primary btn-lg" style="margin-top: 10px">POST <i class="fa fa-send"></i></button>
                 </div>

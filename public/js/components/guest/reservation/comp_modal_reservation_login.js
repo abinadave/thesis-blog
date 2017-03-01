@@ -12,7 +12,7 @@ define(['vue','vue-resource'],
 			        <div class="modal-content" style="width: 300px">
 			            <div class="modal-header">
 			                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			                <h4 class="modal-title" id="myModalLabel">Sign In to proceed order</h4>
+			                <h4 class="modal-title" id="myModalLabel">Sign In to proceed order </h4>
 			            </div>
 			            <div id="div-msg-box" class="modal-body">
 				            <label>Email
@@ -60,21 +60,19 @@ define(['vue','vue-resource'],
       		submitForm(){
       			let self = this;
       			self.clearErrors();
-      			console.log(self.email);
-      			console.log(self.password)
+            
       			self.$http.post('/login/hasccount', {
       				email: self.email,
       				password: self.password,
-              carts: self.carts
+              carts: window.carts
       			}).then((resp) => {
       				  if (resp.status === 200) {
                     let json = JSON.parse(resp.body);
-                    if (json.id) {
-                        self.$http.post('/login', {
-                           email: self.email,
-                           password: self.password
-                        });
-                    }
+                    router.go({ path: '/'});
+                    $('#modal-login').modal('hide');
+                    require(['toastr'], function(toastr){
+                        toastr.success('Success');
+                    });
                 }
       			}, (resp) => {
       				if (resp.status === 422) {

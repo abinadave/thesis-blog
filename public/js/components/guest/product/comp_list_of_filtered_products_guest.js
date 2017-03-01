@@ -1,9 +1,13 @@
 define([
 	'vue',
-	'vue-resource'], 
+	'vue-resource',
+    'components/guest/product/comp_modal_reviews_guest',
+    'moment'], 
 	function(
         Vue,
-        VueResource) {
+        VueResource, 
+        CompModalReviews,
+        moment) {
 
     Vue.use(VueResource);
     Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('value');
@@ -38,7 +42,7 @@ define([
                                 <p>{{ item.description }}</p>
                             </div>
                             <div class="ratings">
-                                <p class="pull-right">15 reviews</p>
+                                <p class="pull-right"><a style="cursor:pointer" @click="showReviews(item)">0 reviews</a></p>
                                 <p>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
@@ -77,18 +81,38 @@ define([
                             <!-- <hr/> -->
                         </div>
                     </div>
-
+                        <div class="modal fade" id="modal-reviews-product" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" style="width: 520px">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="myModalLabel">Item Reviews</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- <list-of-reviews></list-of-reviews> -->
+                                        <input v-model="newComment" @keyup.enter="commenting($value)" type="text" class="form-control" placeholder="White a comment" style="width: 80%" />
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                               </form> 
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
             </div>
         `,
     	
     	data: function(){
     		return {
-
+                newComment: '',
+                currentItemId: 0
     		}
     	},
 
     	components: {
-
+            'modal-reviews-product': CompModalReviews
     	},
     	
     	created(){
@@ -105,6 +129,38 @@ define([
         },
 
     	methods: {
+            commenting(){
+                let self = this;
+                self.$http.post('/comment/new',{
+                    comment: self.newComment,
+                    true_date: moment().format('MMMM DD, YYYY HH:mm:ss'),
+                    product_id: self.currentItemId
+                }).then((resp) => {
+                    if (resp.status === 200) {
+                        let json = JSON.parse(resp.body);
+                        self.newComment = '';
+                        // self.comments.push();
+                        console.log(json);
+                    }
+                }, () => {
+
+                });
+            },
+            fetchCommentOfItem(pid){
+                let self = this;
+                let resource = self.$resource('comment{/id}');
+                resource.get({
+                    id: pid
+                }).then((resp) => {
+                    console.log(resp)
+                })
+            },
+            showReviews(item){
+                let self = this;
+                self.fetchCommentOfItem(item.id);
+                self.currentItemId = item.id;
+                $('#modal-reviews-product').modal('show')
+            },
           	showItemDetails(item){
           		let self = this;
           		$('#modal-product-details').modal('show');

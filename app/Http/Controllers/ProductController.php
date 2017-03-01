@@ -10,9 +10,17 @@ use App\Product as Product;
 use App\Http\Controllers\ColorController as ColorController;
 use App\Http\Controllers\SizeController  as SizeController;
 use App\Http\Controllers\StockController as StockController;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
+    public function fetchClientReservations(){
+        return response()->json([
+            'carts' => \App\Cart::where('client_id', Auth::user()->id)->orderBy('id', 'desc')->get(),
+            'products' => \App\Product::all()
+        ]);
+    }
+
     public function restoreItem(Request $request){
         $id = $request->input('id');
         $rs = \App\Product::withTrashed()

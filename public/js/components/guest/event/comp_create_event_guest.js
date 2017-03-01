@@ -1,35 +1,49 @@
-define(['underscore','vue','vue-resource'], 
-	function(_, Vue, VueResource) {
+define(['underscore','vue','vue-resource',
+'components/guest/event/create_account_event_reservation'], 
+	function(_, Vue, VueResource, CompCreateAccountForm) {
 
     Vue.use(VueResource);
     Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('value');
 
     var Component = Vue.extend({
+        components: {
+            'form-create-account': CompCreateAccountForm
+        },
     	template: `
                 <div class="container" style="margin-top: 100px">
-                    <div class="panel panel-success">
+                    <div v-show="creatingAccount">
+                        <form-create-account 
+                        @back="creatingAccount = false"
+                        @accountcreated="doneUserSaveEvent"
+                        :form="form"></form-create-account>
+                    </div>
+                    <div class="panel panel-success" v-show="!creatingAccount">
                         <div class="panel-heading">
                             Event Reservation
                         </div>
                         <div class="panel-body">
-                            <form style="margin: 20px">
+                            <form @submit.prevent="sendEvent" style="margin: 20px">
                             	<label>
-                            		Event Name: <input type="text" class="form-control" />
+                            		Event Name: <input v-model="form.event_name" type="text" class="form-control" />
                             	</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             	<label>
-                            		Event Address: <input type="text" class="form-control" />
+                            		Event Address: <input v-model="form.address" type="text" class="form-control" />
                             	</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
                             	<label>
+                                    Event Description: <input v-model="form.event_description" type="text" class="form-control" />
+                                </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+                                
+                                <label>
                             		Package Type: 
-                            		<select style="width: 184px" class="form-control">
-                            			<option>Partial Payment</option>
-                            			<option>Full payment</option>
-                            			<option>On the day</option>
+                            		<select v-model="form.package" style="width: 184px" class="form-control">
+                            			<option value="partial">Partial Payment</option>
+                            			<option value="full">Full payment</option>
+                            			<option value="ontheday">On the day</option>
                             		</select>
                             	</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             	<label>
                             		Event Category: 
-                            		<select style="width: 184px" class="form-control">
+                             		<select v-model="form.category" style="width: 184px" class="form-control">
                             			<option>Select category</option>
                             			<option value="{{ cat.id }}" v-for="cat in event_categories">
                             				{{ cat.name }}
@@ -40,27 +54,46 @@ define(['underscore','vue','vue-resource'],
                             	<h4 class="text-primary">
                             		Schedule
                             	</h4>
-                            	<label>
-                            		Date:
-                            		<input type="date" class="form-control">
-                            	</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            	<label>Time
-                            		<input id="basicExample" type="text" class="time" />
-                            	</label><br>
+                                <label>From:
+                                    <input v-model="form.from_date" type="date" class="form-control">
+                                </label>
+                                <input v-model="form.from_time" id="basicExample" type="text" class="time" /><br>
+                                <label>To:
+                                    <input v-model="form.to_date" type="date" class="form-control"/>
+                                </label>
+                                <input v-model="form.to_time" id="basicExample2" type="text" class="time" /><br><br>
+                            	<br>
                             	<label>Event Status
-                            		<input  type="text" class="form-control" value="on-going" disabled />
-                            	</label>
+                            		<input type="text" class="form-control" value="on-going" disabled />
+                            	</label><hr>
+                                <button :disabled="processingAccount" class="btn btn-default btn-lg">Create Event</button>
                             </form>
                         </div>
                         
                     </div>
-                </div>
-            	               
+                </div>    
     	`,
 
     	data(){
     		return {
-    			event_categories: []
+                form: {
+                    user_id: 0,
+                    event_name: '',
+                    event_description: '',
+                    address: '',
+                    category: '',
+                    package: '',
+                    event_status: 'on-going',
+
+                    from_date: '',
+                    from_time: '',
+
+                    to_date: '',
+                    to_time: ''
+                },
+    			event_categories: [],
+                processingAccount: false,
+                creatingAccount: false
     		}
     	},
 
@@ -70,11 +103,47 @@ define(['underscore','vue','vue-resource'],
     	},
 
     	methods: {
+            clearForms(){
+                let self = this;
+                self.form.event_description = '';
+                self.form.event_name = '';
+                self.form.address = '';
+                self.category = '';
+                self.form.event_category = '';
+                self.form.package = '';
+                self.form.from_date = '';
+                self.form.from_time = '';
+                self.form.to_date = '';
+                self.form.to_time = '';
+            },
+            doneUserSaveEvent(user){
+                let self = this;
+                self.creatingAccount = false;
+                self.processingAccount = true;
+                self.form.user_id = user.id;
+                self.$http.post('/event', self.form).then((resp) => {
+                    if (resp.status == 200) {
+                        let json = JSON.parse(resp.body);
+                        console.log(json);
+                        if (json.id > 0) {
+                            alert('event successfully created.');
+                            self.clearForms();
+                        }
+                    }
+                }, (resp) => {
+                    console.log(resp);
+                });
+            },
+            sendEvent(){
+                let self = this;
+                self.creatingAccount = true;
+            },
     		initializeTimePicker(){
     			let self = this;
     			require(['libs/timepicker/jquery.timepicker.min',
     			'css!libs/timepicker/jquery.timepicker.css'], function(){
     			    $('#basicExample').timepicker();
+                    $('#basicExample2').timepicker();
     			});
     		},
     		fetchEventsCateory(){

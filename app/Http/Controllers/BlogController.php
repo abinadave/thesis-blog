@@ -17,6 +17,19 @@ class BlogController extends Controller
         ]);
     }
 
+    public function destroy($id){
+        $blog = Blog::findOrFail($id);
+        $title = $blog->title_slug;
+        $rs = $blog->delete();
+        if ($rs) {
+            $dirDeleted = Storage::deleteDirectory('posts/'.$title);
+            return response()->json([
+                'deleted' => $rs,
+                'dir_deleted' => $dirDeleted
+            ]);
+        }
+    }
+
     public function insert(Request $request){
     	$title= $request->input('title');
     	$body= $request->input('body');

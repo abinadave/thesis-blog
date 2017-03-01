@@ -5,7 +5,8 @@ define([
 	], function(
 	 Vue,
 	 router, 
-	 CompGuest){
+	 CompGuest,
+	 CompLoginSuggestionGuest){
 
 	var init = function(){	
 		var self = this;

@@ -33,7 +33,7 @@ define(['vue',
                 $('#modal-product-details').modal('hide');
                 $('#modal-reservation-guests').modal('hide');
                 self.$emit('checkout');
-                alert('checking out')
+                alert('checking out !!!')
             }
         }
 
