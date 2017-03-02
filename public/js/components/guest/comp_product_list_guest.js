@@ -17,7 +17,6 @@ define([
         CompProductDetails,
         CompModalAllReservations,
         CompCheckOutCarts) {
-
     Vue.use(VueResource);
     Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('value');
 

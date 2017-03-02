@@ -19,6 +19,7 @@ define(['underscore','vue','vue-resource'],
                                 <th>Package</th>
                                 <th>From</th>
                                 <th>To</th>
+                                <th>Contact Number</th>
                                 <th>Event Status</th>
                             </tr>
                        </thead>
@@ -32,6 +33,7 @@ define(['underscore','vue','vue-resource'],
                                <td>{{ event.package }}</td>
                                <td>{{ event.from }} </td>
                                <td>{{ event.to }}</td>
+                               <td>{{ event.contact_number }}</td>
                                <th>{{ event.event_status}}</th>
                            </tr>
                        </tbody>

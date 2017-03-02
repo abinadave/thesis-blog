@@ -61,11 +61,16 @@ define(['underscore','vue','vue-resource',
                                 <label>To:
                                     <input v-model="form.to_date" type="date" class="form-control"/>
                                 </label>
+                                
                                 <input v-model="form.to_time" id="basicExample2" type="text" class="time" /><br><br>
                             	<br>
                             	<label>Event Status
                             		<input type="text" class="form-control" value="on-going" disabled />
-                            	</label><hr>
+                            	</label>
+                                <label>Customers Contact Number
+                                <input type="text" class="form-control" v-model="form.contact_number">
+                                </label>
+                                <hr>
                                 <button :disabled="processingAccount" class="btn btn-default btn-lg">Create Event</button>
                             </form>
                         </div>
@@ -84,7 +89,7 @@ define(['underscore','vue','vue-resource',
                     category: '',
                     package: '',
                     event_status: 'on-going',
-
+                    contact_number: '',
                     from_date: '',
                     from_time: '',
 
@@ -115,6 +120,7 @@ define(['underscore','vue','vue-resource',
                 self.form.from_time = '';
                 self.form.to_date = '';
                 self.form.to_time = '';
+                self.form.contact_number = '';
             },
             doneUserSaveEvent(user){
                 let self = this;

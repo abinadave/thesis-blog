@@ -12,6 +12,7 @@
 */
 
 Route::group(['middleware' => 'web'], function(){
+	Route::delete('reservation/{id}', 'ReservationController@delete');
 	Route::get('comment/{id}', 'CommentController@fetchProductComment');
 	Route::post('comment/new', 'CommentController@insert');
 	Route::get('/', 'UserController@showWelcome');

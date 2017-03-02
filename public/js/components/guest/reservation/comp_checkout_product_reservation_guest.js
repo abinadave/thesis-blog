@@ -1,7 +1,8 @@
 define(['vue','vue-resource',
 	'text!templates/guest/reservation/temp_checkout_product_reservation_guest.html',
-    'components/guest/reservation/comp_modal_reservation_login'], 
-	function(Vue, VueResource, template, CompModalLogin) {
+    'components/guest/reservation/comp_modal_reservation_login',
+    'moment'], 
+	function(Vue, VueResource, template, CompModalLogin, moment) {
     
     Vue.use(VueResource);
     Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('value');
@@ -26,6 +27,8 @@ define(['vue','vue-resource',
     				phone: '',
                     password_confirmation: '',
                     password: '',
+                    true_date: '',
+                    expiration: '',
                     user_id: 0
     			},
     			isSaving: false,
@@ -88,7 +91,11 @@ define(['vue','vue-resource',
 
             saveReservation(user){
                 var self = this;
-                console.log(user)
+                self.form.true_date = moment().format('MMMM DD, YYYY hh:mm:ss');
+                let date = self.form.true_date;
+                let expiration = moment(date).add(3, 'day');
+                let formated  = moment(expiration).format('MMMM DD, YYYY hh:mm:ss');
+                self.form.expiration = formated;
                 self.$http.post('/reservation', self.form).then( (resp) => {
                     if (resp.status === 200) {
                         var json = JSON.parse(resp.body);

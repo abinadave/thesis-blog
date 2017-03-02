@@ -3,8 +3,9 @@ define(['vue',
 	'vue-resource',
     'moment',
 	'text!templates/admin/reservation/temp_table_reservations.html',
-	'components/admin/reservation/comp_modal_reservation_items_admin'], 
-	function(Vue, _, VueResource, moment, template, CompModalReservationItems) {
+	'components/admin/reservation/comp_modal_reservation_items_admin',
+    'toastr'], 
+	function(Vue, _, VueResource, moment, template, CompModalReservationItems, toastr) {
     
     Vue.use(VueResource);
 
@@ -52,6 +53,44 @@ define(['vue',
         },
 
     	methods: {
+            getDuration(item){
+                let self = this;
+                var a = moment(item.expiration);
+                var b = moment().format('MMMM DD, YYYY');
+                self.verifyIfExpired(item);
+                return a.diff(b, 'days') + ' days left';
+            },
+            verifyIfExpired(item){
+                let self = this;
+                let dateNow = moment().format('MMMM DD, YYYY hh:mm:ss');
+                let isBefore = moment(item.true_date).isBefore(item.expiration); // true
+                if (!isBefore) {
+                    toastr.warning('Reservation is expired');
+                    self.deleteReservation(item);
+                }else {
+                    console.log('dere pa expired')
+                }
+            },
+            deleteReservation(item){
+                let self = this;
+                /* reservation will be deleted now [expired na]*/
+                let resource = self.$resource('reservation/{id}');
+                resource.delete({id: item.id}).then(resp => {
+                if (resp.status === 200) {
+                    let json = resp.body;
+                    if (json.deleted) {
+                        self.reservations.$remove(item);
+
+                    }
+                };
+                }, resp => {
+                    console.log(resp);
+                });
+            },
+            getExpiration(reservation){
+                let self = this;
+                console.log(reservation.true_date);
+            },
             getFullname(model){
                 let self = this;
                 let rs = _.filter(self.users, {email: model.email});

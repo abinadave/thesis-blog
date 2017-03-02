@@ -12,7 +12,13 @@ class ReservationController extends Controller
     public function fetch(){
         return Reservation::orderBy('id','desc')->get();
     }
-
+    public function delete($id){
+      $reservation = Reservation::find($id);
+      $rs = $reservation->delete();
+      return response()->json([
+         'deleted' => $rs
+      ]);
+    }
     public function saveClient(Request $request){
 
         $carts = $request->input('carts');
@@ -49,6 +55,8 @@ class ReservationController extends Controller
     	$reservation->postal = $request->input('postal');
     	$reservation->phone = $request->input('phone');
       $reservation->user_id = $request->input('user_id');
+      $reservation->true_date = $request->input('true_date');
+      $reservation->expiration = $request->input('expiration');
     	$reservation->save();
         return response()->json([
             'model' => $reservation

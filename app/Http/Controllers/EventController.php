@@ -27,6 +27,7 @@ class EventController extends Controller
     	$event->event_status = $request->input('event_status');
     	$event->from = $request->input('from_date') . ' ' .$request->input('from_time');
         $event->to = $request->input('to_date') . ' ' . $request->input('to_time');
+        $event->contact_number = $request->input('contact_number');
     	$event->save();
     	return $event;    	
     }
